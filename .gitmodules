@@ -1,0 +1,3 @@
+[submodule "memento-grpc-interface"]
+	path = memento-grpc-interface
+	url = git@github.com:deevly/memento-grpc-interface.git
