@@ -30,7 +30,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     implementation("net.devh:grpc-server-spring-boot-starter:2.13.1.RELEASE")
-    implementation("io.grpc:grpc-protobuf:1.46.0")
+    implementation("com.google.protobuf:protobuf-kotlin-lite:3.20.1")
+    implementation("com.google.protobuf:protobuf-java:3.20.1")
     implementation("io.grpc:grpc-kotlin-stub:1.2.1")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -41,7 +42,8 @@ dependencies {
 }
 
 sourceSets.main {
-    java.srcDirs("memento-grpc-interface/")
+    java.srcDirs("memento-grpc-interface/gen/kotlin/proto")
+    java.srcDirs("memento-grpc-interface/gen/java/proto")
 }
 
 tasks.withType<KotlinCompile> {
