@@ -28,11 +28,20 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    implementation("net.devh:grpc-server-spring-boot-starter:2.13.1.RELEASE")
+    implementation("io.grpc:grpc-protobuf:1.46.0")
+    implementation("io.grpc:grpc-kotlin-stub:1.2.1")
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("mysql:mysql-connector-java")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+sourceSets.main {
+    java.srcDirs("memento-grpc-interface/")
 }
 
 tasks.withType<KotlinCompile> {
