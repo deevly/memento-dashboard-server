@@ -1,0 +1,6 @@
+grpc:
+  server:
+    port: 8181
+spring:
+  elasticsearch:
+    uris: '15.164.96.210:9200'
