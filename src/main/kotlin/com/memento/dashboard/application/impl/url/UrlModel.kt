@@ -1,10 +1,10 @@
 package com.memento.dashboard.application.impl.url
 
-import com.memento.dashboard.domain.url.SiteDomain
-
 data class UrlModel(
-    val siteDomain: SiteDomain,
+    val siteDomain: String,
     val address: String,
     val keyword: String,
-    val visitedTime: String
-    )
+    val visitedTimeSeconds: Long,
+    val visitedTimeNanos: Int,
+    val cursor: String
+)

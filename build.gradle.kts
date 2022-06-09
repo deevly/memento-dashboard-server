@@ -37,7 +37,6 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-//    implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
     implementation("org.springframework.data:spring-data-elasticsearch:4.2.7")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -47,6 +46,7 @@ dependencies {
     implementation("com.google.protobuf:protobuf-kotlin-lite:3.20.1")
     implementation("com.google.protobuf:protobuf-java:3.20.1")
     implementation("io.grpc:grpc-kotlin-stub:1.2.1")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")

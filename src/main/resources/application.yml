@@ -4,3 +4,7 @@ grpc:
 spring:
   elasticsearch:
     uris: '15.164.96.210:9200'
+
+logging:
+  level:
+    tracer: TRACE

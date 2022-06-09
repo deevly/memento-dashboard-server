@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class KeywordServiceImpl : KeywordService{
-    override fun getListKeywords(listKeywordRequest: ListKeywordRequest) {
+    override fun getListKeywords() {
         TODO("Not yet implemented")
     }
 
-    override fun getSearchKeywords(searchKeywordRequest: SearchKeywordRequest) {
+    override fun getSearchKeywords() {
         TODO("Not yet implemented")
     }
 }

@@ -3,13 +3,19 @@ package com.memento.dashboard.domain.url
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.Document
 
-@Document(indexName = "url")
-class Url (user: String, content: String, guid: String, siteDomain: SiteDomain){
+@Document(indexName = "memento")
+class Url (user: String,
+           url: String,
+           siteDomain: SiteDomain,
+           keyword: String,
+           visitedTime: String
+){
     @Id
-    var id: Long? = null
+    var id: String? = null
 
     var user: String = user
-    var content: String = content
+    var url: String = url
     var siteDomain: SiteDomain = siteDomain
-    var guid: String = guid
+    var keyword: String = keyword
+    var visitedTime: String = visitedTime
 }

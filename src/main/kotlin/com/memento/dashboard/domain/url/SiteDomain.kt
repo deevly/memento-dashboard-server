@@ -1,17 +1,11 @@
 package com.memento.dashboard.domain.url
 
 enum class SiteDomain(
-    val topic: String,
-    val prefixUrl: String
+    val content: String
 ) {
 
-    GITHUB("github", "https://github.com"),
-    STACKOF("stackOverflow", "https://stackoverflow.com"),
-    OTHERS("others", "etc");
-
-    companion object {
-
-        private val map = values().associateBy(SiteDomain::prefixUrl)
-        fun fromPrefixUrl(prefixUrl: String) = map[prefixUrl] ?: OTHERS
-    }
+    GITHUB("github"),
+    STACKOF("stackOverflow"),
+    OTHERS("others"),
+    ALL("all");
 }
