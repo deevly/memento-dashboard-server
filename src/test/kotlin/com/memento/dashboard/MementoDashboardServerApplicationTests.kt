@@ -9,5 +9,4 @@ class MementoDashboardServerApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }

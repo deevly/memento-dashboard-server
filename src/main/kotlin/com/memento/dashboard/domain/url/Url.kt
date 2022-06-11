@@ -4,12 +4,13 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.Document
 
 @Document(indexName = "memento")
-class Url (user: String,
-           url: String,
-           siteDomain: SiteDomain,
-           keyword: String,
-           visitedTime: String
-){
+class Url(
+    user: String,
+    url: String,
+    siteDomain: SiteDomain,
+    keyword: String,
+    visitedTime: String
+) {
     @Id
     var id: String? = null
 

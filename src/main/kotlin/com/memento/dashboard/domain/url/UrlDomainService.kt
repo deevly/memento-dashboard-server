@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service
 import org.springframework.util.StringUtils
 
 @Service
-class UrlDomainService (
+class UrlDomainService(
     private val urlRepository: UrlRepository
-    ) {
+) {
 
     fun getUrls(
         username: String,
@@ -19,21 +19,22 @@ class UrlDomainService (
     ): List<SearchHit<Url>> {
 
         return if (siteDomain == SiteDomain.ALL) {
-                urlRepository.findAllUrl(
-                    username,
-                    getDirection(urlSortType),
-                    (if (StringUtils.hasText(cursor)) listOf(cursor) else null)
-                )
-            } else {
-                urlRepository.findAllUrlWithSiteDomain(
-                    username,
-                    siteDomain.name,
-                    getDirection(urlSortType),
-                    if (StringUtils.hasText(cursor)) listOf(cursor) else null )
-            }
+            urlRepository.findAllUrl(
+                username,
+                getDirection(urlSortType),
+                (if (StringUtils.hasText(cursor)) listOf(cursor) else null)
+            )
+        } else {
+            urlRepository.findAllUrlWithSiteDomain(
+                username,
+                siteDomain.name,
+                getDirection(urlSortType),
+                if (StringUtils.hasText(cursor)) listOf(cursor) else null
+            )
+        }
     }
 
-    private fun getDirection(urlSortType: SortType): Direction{
+    private fun getDirection(urlSortType: SortType): Direction {
         return when (urlSortType) {
             SortType.RECENT_TIME_ASC -> {
                 Direction.ASC

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class UrlCustomRepositoryImpl(
     private val elasticsearchOperations: ElasticsearchOperations
-) : UrlCustomRepository{
+) : UrlCustomRepository {
 
     private val logger = KLogging().logger
 
@@ -40,7 +40,9 @@ class UrlCustomRepositoryImpl(
         direction: Direction,
         cursor: List<String>?,
     ): List<SearchHit<Url>> {
-        val criteria = Criteria.where("user").contains(name)
+        val criteria = Criteria.where("user").contains(name).and(
+            Criteria.where("siteDomain").contains(siteDomain)
+        )
         val query: Query = CriteriaQuery(criteria).apply {
             setPageable<CriteriaQuery>(Pageable.ofSize(20))
             addSort<CriteriaQuery>(Sort.by(direction, "visitedTime"))
@@ -48,5 +50,26 @@ class UrlCustomRepositoryImpl(
         }
 
         return elasticsearchOperations.search(query, Url::class.java).searchHits
+    }
+
+    override fun findAllKeywordUrl(
+        name: String,
+        keyword: String,
+        sortType: String,
+        direction: Direction,
+        cursor: List<String>?
+    ): List<Url> {
+        TODO("Not yet implemented")
+    }
+
+    override fun findAllKeywordUrlWithSiteDomain(
+        name: String,
+        keyword: String,
+        siteDomain: String,
+        sortType: String,
+        direction: Direction,
+        cursor: List<String>?
+    ): List<Url> {
+        TODO("Not yet implemented")
     }
 }

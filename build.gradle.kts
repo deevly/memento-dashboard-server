@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
+    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
 }
 
 ext {
@@ -19,7 +20,6 @@ allOpen {
 noArg {
     annotation("javax.persistence.Entity")
 }
-
 
 group = "com.memento"
 version = "0.0.1-SNAPSHOT"
@@ -69,4 +69,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+ktlint {
+    filter {
+        exclude("**/memento/**")
+    }
 }

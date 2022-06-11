@@ -6,7 +6,7 @@ import memento.Types.URLCursor.SortType
 
 interface UrlService {
 
-    fun getListUrls(username: String, domain: SiteDomain, type: SortType, cursorValue: String) : List<UrlModel>
+    fun getListUrls(username: String, domain: SiteDomain, type: SortType, cursorValue: String): List<UrlModel>
 
     fun getListUrlsByKeyword()
 }

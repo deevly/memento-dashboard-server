@@ -11,13 +11,13 @@ import org.joda.time.format.DateTimeFormatter
 import org.springframework.stereotype.Service
 
 @Service
-class UrlServiceImpl (
+class UrlServiceImpl(
     private val urlDomainService: UrlDomainService,
-        ) : UrlService {
+) : UrlService {
 
     private val logger = KLogging().logger
 
-    override fun getListUrls(username: String, domain: SiteDomain, sortType: SortType, cursorValue: String) : List<UrlModel> {
+    override fun getListUrls(username: String, domain: SiteDomain, sortType: SortType, cursorValue: String): List<UrlModel> {
         if (sortType == SortType.UNRECOGNIZED) {
             throw Exception("unrecognized sort type!!")
         }

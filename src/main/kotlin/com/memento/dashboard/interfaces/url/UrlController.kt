@@ -10,11 +10,10 @@ import memento.Url
 import memento.UrlServiceGrpcKt
 import net.devh.boot.grpc.server.service.GrpcService
 
-
 @GrpcService
 class UrlController(
     private val urlService: UrlService
-    ) : UrlServiceGrpcKt.UrlServiceCoroutineImplBase() {
+) : UrlServiceGrpcKt.UrlServiceCoroutineImplBase() {
 
     override suspend fun listUrls(request: Url.ListUrlsRequest): Url.ListUrlsResponse {
         val results = urlService.getListUrls(
@@ -24,19 +23,21 @@ class UrlController(
             request.cursor.value
         )
         return Url.ListUrlsResponse.newBuilder()
-            .addAllUrls(results.map { result ->
-                URL.newBuilder()
-                    .setAddress(result.address)
-                    .setDomain(Types.SiteDomain.valueOf(result.siteDomain))
-                    .setVisitTime(
-                        Timestamp.newBuilder()
-                            .setSeconds(result.visitedTimeSeconds)
-                            .setNanos((result.visitedTimeNanos))
-                            .build()
-                    )
-                    .setKeyword(result.keyword)
-                    .build()
-            })
+            .addAllUrls(
+                results.map { result ->
+                    URL.newBuilder()
+                        .setAddress(result.address)
+                        .setDomain(Types.SiteDomain.valueOf(result.siteDomain))
+                        .setVisitTime(
+                            Timestamp.newBuilder()
+                                .setSeconds(result.visitedTimeSeconds)
+                                .setNanos((result.visitedTimeNanos))
+                                .build()
+                        )
+                        .setKeyword(result.keyword)
+                        .build()
+                }
+            )
             .setCursor(
                 URLCursor.newBuilder()
                     .setType(request.cursor.type)

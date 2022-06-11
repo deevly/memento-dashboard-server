@@ -8,7 +8,7 @@ import net.devh.boot.grpc.server.service.GrpcService
 @GrpcService
 class KeywordController(
     private val keywordService: KeywordService
-    ) : KeywordServiceGrpcKt.KeywordServiceCoroutineImplBase() {
+) : KeywordServiceGrpcKt.KeywordServiceCoroutineImplBase() {
 
     override suspend fun listKeywords(request: Keyword.ListKeywordsRequest): Keyword.ListKeywordsResponse {
         return super.listKeywords(request)

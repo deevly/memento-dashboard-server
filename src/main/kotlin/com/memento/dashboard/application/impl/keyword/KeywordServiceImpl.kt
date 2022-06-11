@@ -4,7 +4,7 @@ import com.memento.dashboard.application.KeywordService
 import org.springframework.stereotype.Service
 
 @Service
-class KeywordServiceImpl : KeywordService{
+class KeywordServiceImpl : KeywordService {
     override fun getListKeywords() {
         TODO("Not yet implemented")
     }
