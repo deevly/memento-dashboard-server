@@ -23,8 +23,7 @@ class UrlCustomRepositoryImpl(
         direction: Direction,
         cursor: List<String>?,
     ): List<SearchHit<Url>> {
-
-        val criteria = Criteria.where("user").contains(name)
+        val criteria = Criteria.where("user").matches(name)
         val query: Query = CriteriaQuery(criteria).apply {
             setPageable<CriteriaQuery>(Pageable.ofSize(20))
             addSort<CriteriaQuery>(Sort.by(direction, "visitedTime"))
@@ -40,8 +39,8 @@ class UrlCustomRepositoryImpl(
         direction: Direction,
         cursor: List<String>?,
     ): List<SearchHit<Url>> {
-        val criteria = Criteria.where("user").contains(name).and(
-            Criteria.where("siteDomain").contains(siteDomain)
+        val criteria = Criteria.where("user").matches(name).and(
+            Criteria.where("siteDomain").matches(siteDomain)
         )
         val query: Query = CriteriaQuery(criteria).apply {
             setPageable<CriteriaQuery>(Pageable.ofSize(20))
@@ -55,21 +54,57 @@ class UrlCustomRepositoryImpl(
     override fun findAllKeywordUrl(
         name: String,
         keyword: String,
-        sortType: String,
         direction: Direction,
         cursor: List<String>?
-    ): List<Url> {
-        TODO("Not yet implemented")
+    ): List<SearchHit<Url>> {
+        val criteria = Criteria.where("user").matches(name).and(
+            Criteria.where("keyword.keyword").matches(keyword)
+        )
+        val query: Query = CriteriaQuery(criteria).apply {
+            setPageable<CriteriaQuery>(Pageable.ofSize(20))
+            addSort<CriteriaQuery>(Sort.by(direction, "visitedTime"))
+            searchAfter = cursor
+        }
+
+        return elasticsearchOperations.search(query, Url::class.java).searchHits
     }
 
     override fun findAllKeywordUrlWithSiteDomain(
         name: String,
         keyword: String,
         siteDomain: String,
+        direction: Direction,
+        cursor: List<String>?
+    ): List<SearchHit<Url>> {
+        val criteria = Criteria.where("user").matches(name)
+            .and(Criteria.where("keyword.keyword").matches(keyword)
+            ).and(Criteria.where("siteDomain").matches(siteDomain))
+
+        val query: Query = CriteriaQuery(criteria).apply {
+            setPageable<CriteriaQuery>(Pageable.ofSize(20))
+            addSort<CriteriaQuery>(Sort.by(direction, "visitedTime"))
+            searchAfter = cursor
+        }
+
+        return elasticsearchOperations.search(query, Url::class.java).searchHits
+    }
+
+    override fun findAllKeyword(
+        name: String,
         sortType: String,
         direction: Direction,
         cursor: List<String>?
-    ): List<Url> {
+    ): List<SearchHit<Url>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun findAllKeywordBySearch(
+        name: String,
+        regex: String,
+        sortType: String,
+        direction: Direction,
+        cursor: List<String>?
+    ): List<SearchHit<Url>> {
         TODO("Not yet implemented")
     }
 }

@@ -8,5 +8,5 @@ interface UrlService {
 
     fun getListUrls(username: String, domain: SiteDomain, type: SortType, cursorValue: String): List<UrlModel>
 
-    fun getListUrlsByKeyword()
+    fun getListUrlsByKeyword(username: String, keyword: String, domain: SiteDomain, type: SortType, cursorValue: String): List<UrlModel>
 }

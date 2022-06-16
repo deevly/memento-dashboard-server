@@ -34,7 +34,7 @@ class OpenSearchConfig {
                 ) { x509Certificates: Array<X509Certificate?>?, s: String? -> true }
             val sslContext: SSLContext = sslBuilder.build()
             val client = RestHighLevelClient(RestClient
-                .builder(HttpHost("13.125.194.56", 9200, "https"))
+                .builder(HttpHost("13.125.6.42", 9200, "https"))
                 .setHttpClientConfigCallback { httpClientBuilder ->
                     httpClientBuilder
                         .setDefaultCredentialsProvider(credentialsProvider)

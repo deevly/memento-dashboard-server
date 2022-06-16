@@ -48,6 +48,35 @@ class UrlController(
     }
 
     override suspend fun listUrlsByKeyword(request: Url.ListUrlsByKeywordRequest): Url.ListUrlsByKeywordResponse {
-        return Url.ListUrlsByKeywordResponse.newBuilder().build()
+        val results = urlService.getListUrlsByKeyword(
+            request.username,
+            request.keyword,
+            SiteDomain.valueOf(request.domain.name),
+            request.cursor.type,
+            request.cursor.value
+        )
+        return Url.ListUrlsByKeywordResponse.newBuilder()
+            .addAllUrls(
+                results.map { result ->
+                    URL.newBuilder()
+                        .setAddress(result.address)
+                        .setDomain(Types.SiteDomain.valueOf(result.siteDomain))
+                        .setVisitTime(
+                            Timestamp.newBuilder()
+                                .setSeconds(result.visitedTimeSeconds)
+                                .setNanos((result.visitedTimeNanos))
+                                .build()
+                        )
+                        .setKeyword(result.keyword)
+                        .build()
+                }
+            )
+            .setCursor(
+                URLCursor.newBuilder()
+                    .setType(request.cursor.type)
+                    .setValue(results[results.size - 1].cursor)
+                    .build()
+            )
+            .build()
     }
 }

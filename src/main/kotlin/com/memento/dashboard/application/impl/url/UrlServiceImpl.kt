@@ -18,9 +18,7 @@ class UrlServiceImpl(
     private val logger = KLogging().logger
 
     override fun getListUrls(username: String, domain: SiteDomain, sortType: SortType, cursorValue: String): List<UrlModel> {
-        if (sortType == SortType.UNRECOGNIZED) {
-            throw Exception("unrecognized sort type!!")
-        }
+        validateSortType(sortType)
 
         return urlDomainService.getUrls(username, domain, sortType, cursorValue).map { searchHit ->
             val content = searchHit.content
@@ -36,13 +34,31 @@ class UrlServiceImpl(
         }
     }
 
-    fun getDateFromString(visitedTime: String): Long {
+    override fun getListUrlsByKeyword(username: String, keyword: String, domain: SiteDomain, sortType: SortType, cursorValue: String): List<UrlModel> {
+        validateSortType(sortType)
+        return urlDomainService.getUrlsByKeyword(username, keyword, domain, sortType, cursorValue).map { searchHit ->
+            val content = searchHit.content
+            val visitedTime = getDateFromString(content.visitedTime)
+            UrlModel(
+                content.siteDomain.name,
+                content.url,
+                content.keyword,
+                (visitedTime / 1000),
+                (visitedTime % 1000 * 1000000).toInt(),
+                content.visitedTime
+            )
+        }
+    }
+
+    private fun validateSortType(sortType: SortType) {
+        if (sortType == SortType.UNRECOGNIZED) {
+            throw Exception("unrecognized sort type!!")
+        }
+    }
+
+    private fun getDateFromString(visitedTime: String): Long {
         val datetimeformat: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
         val dateTime: DateTime = datetimeformat.parseDateTime(visitedTime)
         return dateTime.millis
-    }
-
-    override fun getListUrlsByKeyword() {
-        TODO("Not yet implemented")
     }
 }
