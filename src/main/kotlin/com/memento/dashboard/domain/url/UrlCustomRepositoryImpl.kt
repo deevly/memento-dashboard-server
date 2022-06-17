@@ -24,11 +24,7 @@ class UrlCustomRepositoryImpl(
         cursor: List<String>?,
     ): List<SearchHit<Url>> {
         val criteria = Criteria.where("user").matches(name)
-        val query: Query = CriteriaQuery(criteria).apply {
-            setPageable<CriteriaQuery>(Pageable.ofSize(20))
-            addSort<CriteriaQuery>(Sort.by(direction, "visitedTime"))
-            searchAfter = cursor
-        }
+        val query: Query = templateQuery(criteria, direction, "visitedTime", cursor)
 
         return elasticsearchOperations.search(query, Url::class.java).searchHits
     }
@@ -42,11 +38,7 @@ class UrlCustomRepositoryImpl(
         val criteria = Criteria.where("user").matches(name).and(
             Criteria.where("siteDomain").matches(siteDomain)
         )
-        val query: Query = CriteriaQuery(criteria).apply {
-            setPageable<CriteriaQuery>(Pageable.ofSize(20))
-            addSort<CriteriaQuery>(Sort.by(direction, "visitedTime"))
-            searchAfter = cursor
-        }
+        val query: Query = templateQuery(criteria, direction, "visitedTime", cursor)
 
         return elasticsearchOperations.search(query, Url::class.java).searchHits
     }
@@ -58,13 +50,8 @@ class UrlCustomRepositoryImpl(
         cursor: List<String>?
     ): List<SearchHit<Url>> {
         val criteria = Criteria.where("user").matches(name).and(
-            Criteria.where("keyword.keyword").matches(keyword)
-        )
-        val query: Query = CriteriaQuery(criteria).apply {
-            setPageable<CriteriaQuery>(Pageable.ofSize(20))
-            addSort<CriteriaQuery>(Sort.by(direction, "visitedTime"))
-            searchAfter = cursor
-        }
+            Criteria.where("keyword.keyword").matches(keyword))
+        val query: Query = templateQuery(criteria, direction, "visitedTime", cursor)
 
         return elasticsearchOperations.search(query, Url::class.java).searchHits
     }
@@ -79,14 +66,23 @@ class UrlCustomRepositoryImpl(
         val criteria = Criteria.where("user").matches(name)
             .and(Criteria.where("keyword.keyword").matches(keyword)
             ).and(Criteria.where("siteDomain").matches(siteDomain))
-
-        val query: Query = CriteriaQuery(criteria).apply {
-            setPageable<CriteriaQuery>(Pageable.ofSize(20))
-            addSort<CriteriaQuery>(Sort.by(direction, "visitedTime"))
-            searchAfter = cursor
-        }
+        val query: Query = templateQuery(criteria, direction, "visitedTime", cursor)
 
         return elasticsearchOperations.search(query, Url::class.java).searchHits
+    }
+
+    private fun templateQuery(
+        criteria: Criteria,
+        direction: Direction,
+        sortBy: String,
+        cursor: List<String>?
+    ): Query {
+        val query: Query = CriteriaQuery(criteria).apply {
+            setPageable<CriteriaQuery>(Pageable.ofSize(20))
+            addSort<CriteriaQuery>(Sort.by(direction, sortBy))
+            searchAfter = cursor
+        }
+        return query
     }
 
     override fun findAllKeyword(
