@@ -31,15 +31,16 @@ class OpenSearchConfig {
             val sslBuilder: SSLContextBuilder = SSLContexts.custom()
                 .loadTrustMaterial(
                     null
-                ) { x509Certificates: Array<X509Certificate?>?, s: String? -> true }
+                ) { _: Array<X509Certificate?>?, _: String? -> true }
             val sslContext: SSLContext = sslBuilder.build()
-            val client = RestHighLevelClient(RestClient
-                .builder(HttpHost("13.125.24.213", 9200, "https"))
-                .setHttpClientConfigCallback { httpClientBuilder ->
-                    httpClientBuilder
-                        .setDefaultCredentialsProvider(credentialsProvider)
-                        .setSSLContext(sslContext)
-                        .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+            val client = RestHighLevelClient(
+                RestClient
+                    .builder(HttpHost("52.79.44.255", 9200, "https"))
+                    .setHttpClientConfigCallback { httpClientBuilder ->
+                        httpClientBuilder
+                            .setDefaultCredentialsProvider(credentialsProvider)
+                            .setSSLContext(sslContext)
+                            .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
                 }
                 .setRequestConfigCallback { requestConfigBuilder ->
                     requestConfigBuilder.setConnectTimeout(5000)

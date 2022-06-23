@@ -1,9 +1,9 @@
 package com.memento.dashboard.application.impl.url
 
 import com.memento.dashboard.domain.url.Url
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.format.DateTimeFormatter
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 data class UrlModel(
     val siteDomain: String,
@@ -28,9 +28,10 @@ data class UrlModel(
         }
 
         private fun getDateFromString(visitedTime: String): Long {
-            val datetimeformat: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
-            val dateTime: DateTime = datetimeformat.parseDateTime(visitedTime)
-            return dateTime.millis
+            val datetimeformat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+            val dateTime: LocalDateTime = LocalDateTime.parse(visitedTime, datetimeformat)
+
+            return dateTime.toInstant(ZoneOffset.UTC).toEpochMilli()
         }
     }
 }

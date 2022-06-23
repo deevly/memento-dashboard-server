@@ -4,15 +4,12 @@ import com.memento.dashboard.application.UrlService
 import com.memento.dashboard.domain.url.SiteDomain
 import com.memento.dashboard.domain.url.UrlDomainService
 import memento.Types.URLCursor.SortType
-import mu.KLogging
 import org.springframework.stereotype.Service
 
 @Service
 class UrlServiceImpl(
     private val urlDomainService: UrlDomainService,
 ) : UrlService {
-
-    private val logger = KLogging().logger
 
     override fun getListUrls(username: String, domain: SiteDomain, sortType: SortType, cursorValue: String): List<UrlModel> {
         validateSortType(sortType)
