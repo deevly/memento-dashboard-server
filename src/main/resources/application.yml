@@ -6,3 +6,10 @@ logging:
     tracer: TRACE
 server:
     port: 8190
+memento:
+    kms:
+        key-id: "21fc1e9e-a4c9-4bb6-a4c9-7b5a5cff8e64"
+    opensearch:
+        address: "52.79.44.255"
+        username: "HT60qw1HBa4oJ0WFQ2gHp10Z/7/Fm17/irIx0dMDt2pO97QEeZkAmsjTpvqZETmU3qDvFHXYL6t1l7BWZzx/A3ADFmfdT7hm7OOLntM1s2kZd8mHZkl1tsAoFxroYDzjiWKZEPgqVtH62cNPmMud5R1tXgg/3PpkuUeowhPQRxdv4ywVRBxUcntZAxr6hoOgQ3V6Rch8RvVOozIBqXyTz2SX52EOd9sS3OSe1tEZbDnfEOMtYadlXpdetvf2kKsfRPyVhHHNbJrqKYC+ifVMMPuqtCbb6lx5Ed8KnEs9dDNcZPI4yTxJommHnA3JjngBxDFobO9csIlE9Mj1WJpv7g=="
+        password: "RC4F15O/Q2fGhJUeCZz8eGUgZHo/Q53rCOYdArUDQqAmeLifTf1y3JqHKDW5lw5/d1E8fPSZE/4ZW9Qkw2ZpXkU9A+CFwWmgPqvKWtR/CKZMk/iAS1kJlmsaOtx6HXZpPDYQbNytHt0F742mrMl2ka8CZb3WhBTRaBFLwiA+EDCw8wWz7/fzTtKVuLPSNeQwqRzousAw5kvgtzQltjv4FasDLxOr2Sk5COZPImtU6lCukJ+oi0/67U/2QgENQ66lbojt0nJpiAbJxWlugZ+A/ym7fTy2K4CEEGeXT6xr4zN5QkffQGaesxPYR7Z9sR4Hmyf2yI0cK1/TxzqQ3RgauA=="
