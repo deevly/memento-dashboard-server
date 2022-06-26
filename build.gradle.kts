@@ -9,6 +9,12 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("com.amazonaws:aws-java-sdk-bom:1.12.202")
+    }
+}
+
 ext {
     set("elasticsearch.version", "7.12.1")
 }
@@ -41,6 +47,10 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    implementation("com.amazonaws:aws-java-sdk-core")
+    implementation("com.amazonaws:aws-java-sdk-kms")
+    implementation("com.amazonaws:jmespath-java")
 
     implementation("net.devh:grpc-server-spring-boot-starter:2.13.1.RELEASE")
     implementation("com.google.protobuf:protobuf-kotlin-lite:3.20.1")
