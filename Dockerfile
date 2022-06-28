@@ -1,15 +1,16 @@
-FROM appinair/jdk11-maven as base
+FROM openjdk:11-jdk-oracle AS builder
 
-FROM base as builder
+WORKDIR /dashboard
+COPY memento-grpc-interface memento-grpc-interface
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
+COPY src src
+RUN chmod +x ./gradlew
+RUN ./gradlew bootJAR
 
-WORKDIR /memento-dashboard-server
-COPY . /memento-dashboard-server
-
-RUN chmod 700 gradlew
-RUN ./gradlew bootJar
-
-FROM base as producer
-
-COPY --from=builder /memento-dashboard-server/build/libs/dashboard-0.0.1-SNAPSHOT.jar /dashboard.jar
-
+FROM openjdk:11-jdk-oracle
+COPY --from=builder /dashboard/build/libs/*.jar /dashboard.jar
+EXPOSE 8080
 ENTRYPOINT ["java","-jar","-Daws.key.access=${ACCESS_KEY}","-Daws.key.secret=${SECRET_KEY}", "/dashboard.jar"]
