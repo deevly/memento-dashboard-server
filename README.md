@@ -1,6 +1,7 @@
 # Dashboard Server
 
 gRPC 기반의 Memento 메인 도메인 서버
+
 Opensearch 내의 사용자 데이터 조회 및 가공, 결과 제공
 
 ### Build
